@@ -1,6 +1,6 @@
 {
-    "name": "findmybook_flutter",
-    "short_name": "findmybook_flutter",
+    "name": "smart_library_app",
+    "short_name": "smart_library_app",
     "start_url": ".",
     "display": "standalone",
     "background_color": "#0175C2",

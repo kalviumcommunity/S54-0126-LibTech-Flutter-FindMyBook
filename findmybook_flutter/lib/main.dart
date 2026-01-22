@@ -1,244 +1,122 @@
 import 'package:flutter/material.dart';
 
 void main() {
-  runApp(const FindMyBookApp());
+  runApp(const MyApp());
 }
 
-class FindMyBookApp extends StatelessWidget {
-  const FindMyBookApp({super.key});
+class MyApp extends StatelessWidget {
+  const MyApp({super.key});
 
+  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'FindMyBook',
+      title: 'Flutter Demo',
       theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
-        useMaterial3: true,
+        // This is the theme of your application.
+        //
+        // TRY THIS: Try running your application with "flutter run". You'll see
+        // the application has a purple toolbar. Then, without quitting the app,
+        // try changing the seedColor in the colorScheme below to Colors.green
+        // and then invoke "hot reload" (save your changes or press the "hot
+        // reload" button in a Flutter-supported IDE, or press "r" if you used
+        // the command line to start the app).
+        //
+        // Notice that the counter didn't reset back to zero; the application
+        // state is not lost during the reload. To reset the state, use hot
+        // restart instead.
+        //
+        // This works for code too, not just values: Most code changes can be
+        // tested with just a hot reload.
+        colorScheme: .fromSeed(seedColor: Colors.deepPurple),
       ),
-      home: const ResponsiveHomePage(),
+      home: const MyHomePage(title: 'Flutter Demo Home Page'),
     );
   }
 }
 
-class Book {
-  final String title;
-  final String author;
-  final String imageUrl;
-  final String description;
+class MyHomePage extends StatefulWidget {
+  const MyHomePage({super.key, required this.title});
 
-  const Book({
-    required this.title,
-    required this.author,
-    required this.imageUrl,
-    required this.description,
-  });
+  // This widget is the home page of your application. It is stateful, meaning
+  // that it has a State object (defined below) that contains fields that affect
+  // how it looks.
+
+  // This class is the configuration for the state. It holds the values (in this
+  // case the title) provided by the parent (in this case the App widget) and
+  // used by the build method of the State. Fields in a Widget subclass are
+  // always marked "final".
+
+  final String title;
+
+  @override
+  State<MyHomePage> createState() => _MyHomePageState();
 }
 
-final List<Book> sampleBooks = [
-  const Book(
-    title: 'Flutter Apprentice',
-    author: 'Mike Katz',
-    imageUrl: 'https://tinyurl.com/flutter-apprentice-cover', // Placeholder
-    description: 'Learn to build cross-platform apps with Flutter and Dart.',
-  ),
-  const Book(
-    title: 'Clean Architecture',
-    author: 'Robert C. Martin',
-    imageUrl: 'https://tinyurl.com/clean-arch-cover', // Placeholder
-    description: 'A Craftsman\'s Guide to Software Structure and Design.',
-  ),
-  const Book(
-    title: 'Dart for Absolute Beginners',
-    author: 'David Kopec',
-    imageUrl: 'https://tinyurl.com/dart-beginners-cover', // Placeholder
-    description: 'Get started with the Dart programming language.',
-  ),
-  const Book(
-    title: 'Refactoring',
-    author: 'Martin Fowler',
-    imageUrl: 'https://tinyurl.com/refactoring-cover', // Placeholder
-    description: 'Improving the Design of Existing Code.',
-  ),
-  const Book(
-    title: 'The Pragmatic Programmer',
-    author: 'Andrew Hunt',
-    imageUrl: 'https://tinyurl.com/pragmatic-prog-cover', // Placeholder
-    description: 'Your Journey to Mastery.',
-  ),
-];
+class _MyHomePageState extends State<MyHomePage> {
+  int _counter = 0;
 
-class ResponsiveHomePage extends StatelessWidget {
-  const ResponsiveHomePage({super.key});
+  void _incrementCounter() {
+    setState(() {
+      // This call to setState tells the Flutter framework that something has
+      // changed in this State, which causes it to rerun the build method below
+      // so that the display can reflect the updated values. If we changed
+      // _counter without calling setState(), then the build method would not be
+      // called again, and so nothing would appear to happen.
+      _counter++;
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
-    // Media Query Example:
-    // Using MediaQuery to get the screen size for decisions that might not be purely layout driven
-    // or to pass down to children. Here we just print it for demo purposes or use it for high-level logic.
-    final screenSize = MediaQuery.of(context).size;
-    
+    // This method is rerun every time setState is called, for instance as done
+    // by the _incrementCounter method above.
+    //
+    // The Flutter framework has been optimized to make rerunning build methods
+    // fast, so that you can just rebuild anything that needs updating rather
+    // than having to individually change instances of widgets.
     return Scaffold(
       appBar: AppBar(
-        title: Text('FindMyBook (${screenSize.width.toInt()}px)'),
+        // TRY THIS: Try changing the color here to a specific color (to
+        // Colors.amber, perhaps?) and trigger a hot reload to see the AppBar
+        // change color while the other colors stay the same.
         backgroundColor: Theme.of(context).colorScheme.inversePrimary,
+        // Here we take the value from the MyHomePage object that was created by
+        // the App.build method, and use it to set our appbar title.
+        title: Text(widget.title),
       ),
-      // LayoutBuilder Example:
-      // This is the core of our responsive logic. It gives us the constraints
-      // of the parent widget (in this case, the Scaffold body).
-      body: LayoutBuilder(
-        builder: (context, constraints) {
-          if (constraints.maxWidth > 600) {
-            // Wide screen (Tablet/Desktop) -> Grid View
-            return const BookGrid();
-          } else {
-            // Narrow screen (Mobile) -> List View
-            return const BookList();
-          }
-        },
+      body: Center(
+        // Center is a layout widget. It takes a single child and positions it
+        // in the middle of the parent.
+        child: Column(
+          // Column is also a layout widget. It takes a list of children and
+          // arranges them vertically. By default, it sizes itself to fit its
+          // children horizontally, and tries to be as tall as its parent.
+          //
+          // Column has various properties to control how it sizes itself and
+          // how it positions its children. Here we use mainAxisAlignment to
+          // center the children vertically; the main axis here is the vertical
+          // axis because Columns are vertical (the cross axis would be
+          // horizontal).
+          //
+          // TRY THIS: Invoke "debug painting" (choose the "Toggle Debug Paint"
+          // action in the IDE, or press "p" in the console), to see the
+          // wireframe for each widget.
+          mainAxisAlignment: .center,
+          children: [
+            const Text('You have pushed the button this many times:'),
+            Text(
+              '$_counter',
+              style: Theme.of(context).textTheme.headlineMedium,
+            ),
+          ],
+        ),
       ),
-    );
-  }
-}
-
-class BookList extends StatelessWidget {
-  const BookList({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return ListView.builder(
-      itemCount: sampleBooks.length,
-      itemBuilder: (context, index) {
-        return BookCard(book: sampleBooks[index], isCompact: true);
-      },
-    );
-  }
-}
-
-class BookGrid extends StatelessWidget {
-  const BookGrid({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return GridView.builder(
-      gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-        crossAxisCount: 3, // Display 3 columns on wider screens
-        childAspectRatio: 0.8,
-        crossAxisSpacing: 10,
-        mainAxisSpacing: 10,
+      floatingActionButton: FloatingActionButton(
+        onPressed: _incrementCounter,
+        tooltip: 'Increment',
+        child: const Icon(Icons.add),
       ),
-      padding: const EdgeInsets.all(10),
-      itemCount: sampleBooks.length,
-      itemBuilder: (context, index) {
-        return BookCard(book: sampleBooks[index], isCompact: false);
-      },
-    );
-  }
-}
-
-class BookCard extends StatelessWidget {
-  final Book book;
-  final bool isCompact;
-
-  const BookCard({
-    super.key,
-    required this.book,
-    required this.isCompact,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return Card(
-      margin: const EdgeInsets.all(8.0),
-      child: isCompact 
-          ? _buildHorizontalLayout(context) 
-          : _buildVerticalLayout(context),
-    );
-  }
-
-  // Flexible Application:
-  // In the horizontal layout, we handle a Row. We want the image to take fixed space
-  // or a portion, and the text to fill the rest.
-  Widget _buildHorizontalLayout(BuildContext context) {
-    return Row(
-      children: [
-        // Image acts as a fixed visual anchor
-        Container(
-          width: 80,
-          height: 120,
-          color: Colors.grey[300], // Placeholder for actual image
-          child: const Icon(Icons.book, size: 40, color: Colors.grey),
-        ),
-        const SizedBox(width: 10),
-        // Expanded forces the Column to take strictly the remaining available space
-        Expanded(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(
-                book.title,
-                style: Theme.of(context).textTheme.titleMedium,
-                maxLines: 1,
-                overflow: TextOverflow.ellipsis,
-              ),
-              Text(
-                book.author,
-                style: Theme.of(context).textTheme.bodySmall,
-              ),
-              // Flexible allows the description to take space if available, but not force it if empty
-              Flexible(
-                child: Padding(
-                  padding: const EdgeInsets.only(top: 8.0),
-                  child: Text(
-                    book.description,
-                    maxLines: 2,
-                    overflow: TextOverflow.ellipsis,
-                    style: Theme.of(context).textTheme.bodyMedium,
-                  ),
-                ),
-              ),
-            ],
-          ),
-        ),
-      ],
-    );
-  }
-
-  Widget _buildVerticalLayout(BuildContext context) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.stretch,
-      children: [
-        // Expanded here makes the image area fill the vertical space available above text
-        Expanded(
-          flex: 2,
-          child: Container(
-            color: Colors.grey[300],
-            child: const Icon(Icons.book, size: 60, color: Colors.grey),
-          ),
-        ),
-        Padding(
-          padding: const EdgeInsets.all(12.0),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(
-                book.title,
-                style: Theme.of(context).textTheme.titleMedium,
-                maxLines: 1,
-                overflow: TextOverflow.ellipsis,
-              ),
-              const SizedBox(height: 4),
-              Text(book.author, style: Theme.of(context).textTheme.bodySmall),
-              const SizedBox(height: 8),
-              Text(
-                book.description,
-                maxLines: 3,
-                overflow: TextOverflow.ellipsis,
-                style: Theme.of(context).textTheme.bodyMedium,
-              ),
-            ],
-          ),
-        ),
-      ],
     );
   }
 }
