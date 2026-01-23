@@ -164,3 +164,77 @@ By rebuilding only what is necessary and managing state correctly, Flutter appli
 
 ⸻
 
+Assignment: Firestore Collections & Relations Design
+
+What We Did
+
+Designed the Firestore database schema for the Smart Library Management Mobile App using production-level NoSQL best practices.
+
+⸻
+
+Collections Created
+
+1. books
+	•	Stores book details and inventory
+	•	Fields: title, author, isbn, shelfLocation, totalCopies, availableCopies
+
+2. users
+	•	Stores user profile information
+	•	Fields: name, email, role, createdAt
+
+3. borrowings
+	•	Tracks book issue/return transactions
+	•	Fields: bookId, userId, issuedAt, dueAt, returnedAt
+
+⸻
+
+🔗 Relationships
+	•	borrowings.userId → references users
+	•	borrowings.bookId → references books
+	•	No joins; relationships handled using document IDs (Firestore best practice)
+
+⸻
+
+Design Rationale
+	•	Flat, scalable Firestore structure
+	•	Optimized for mobile queries
+	•	Avoids deep nesting
+	•	Easy to extend with Cloud Functions and Firestore Rules
+
+⸻
+
+⚖️ MERN Comparison
+	•	MongoDB collections → Firestore collections
+	•	ObjectId references → Document ID references
+	•	Express APIs → Cloud Functions
+
+⸻
+
+Proof of Work
+
+Screenshots attached showing:
+	•	books collection
+	•	borrowings collection
+	•	users collection
+
+## 📸 Firebase Firestore – Proof of Work
+
+### 📚 Books Collection
+![Books collection](findmybook_flutter/assets/fire_base_collection1.png)
+
+### 🔄 Borrowings Collection
+![Borrowings collection](findmybook_flutter/assets/fire_base_collection2.png)
+
+### 👤 Users Collection
+![Users collection](findmybook_flutter/assets/fire_base_collection3.png)
+
+
+⸻
+
+Status
+
+✔ Collections designed
+✔ Relations defined
+✔ Data verified in Firebase Console
+
+⸻
