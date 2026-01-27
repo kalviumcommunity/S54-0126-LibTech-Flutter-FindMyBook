@@ -66,12 +66,12 @@ class MyApp extends StatelessWidget {
     );
   }
 }
-
+```
 Once built, a StatelessWidget remains unchanged unless its parent rebuilds with new data.
 
 ⸻
 
-StatefulWidget
+### StatefulWidget
 
 A StatefulWidget is used when the UI depends on changing data.
 
@@ -79,27 +79,32 @@ Usage in this app:
 	•	Counter value displayed on the screen
 
 Example:
-
+```
 class CounterScreen extends StatefulWidget {
   @override
   State<CounterScreen> createState() => _CounterScreenState();
 }
+```
 
 The mutable state is stored separately in a State object, allowing Flutter to manage UI updates efficiently.
 
 ⸻
 
-Reactive UI and setState()
+### Reactive UI and setState()
 
 Flutter follows a reactive rendering model. When the application state changes, the UI automatically updates to reflect the new state.
 
 In this app, pressing the floating action button increments a counter. This update is triggered using setState():
+
+```
 
 void incrementCounter() {
   setState(() {
     count++;
   });
 }
+```
+
 
 Calling setState():
 	•	Notifies Flutter that the widget’s state has changed
@@ -110,37 +115,37 @@ This ensures smooth animations and consistent frame rates.
 
 ⸻
 
-Case Study: The Laggy To-Do App
+## Case Study: The Laggy To-Do App
 
-Problem Analysis
+### Problem Analysis
 
 In the TaskEase To-Do app scenario, UI lag occurs due to:
-	•	State being managed too high in the widget tree
-	•	Entire screens rebuilding on minor state changes
-	•	Deeply nested widgets rebuilding unnecessarily
-	•	Poor separation of static and dynamic widgets
+-  State being managed too high in the widget tree
+- Entire screens rebuilding on minor state changes
+- Deeply nested widgets rebuilding unnecessarily
+- Poor separation of static and dynamic widgets
 
 These issues lead to frame drops and sluggish performance, especially on iOS.
 
 ⸻
 
-How Flutter Prevents Performance Issues
+## How Flutter Prevents Performance Issues
 
-Efficient Widget Rebuilding
+### Efficient Widget Rebuilding
 
 Flutter rebuilds only the widgets affected by a state change. By placing state close to where it is used, unnecessary rebuilds are avoided.
 
-Proper State Control
+### Proper State Control
 
 In this app, only the counter widget rebuilds when the counter changes. Static widgets such as the AppBar remain unaffected.
 
-Dart’s Async Model
+### Dart’s Async Model
 
 Dart’s async and await mechanisms allow long-running tasks to execute without blocking the UI thread, maintaining responsiveness and smooth animations.
 
 ⸻
 
-Cross-Platform Performance Benefits
+## Cross-Platform Performance Benefits
 
 Flutter ensures consistent performance across Android and iOS by:
 	•	Using a single rendering engine (Skia)
@@ -152,7 +157,7 @@ This design allows Flutter apps to maintain stable frame rates and a smooth user
 
 ⸻
 
-Conclusion
+## Conclusion
 
 This project demonstrates how Flutter’s widget-based architecture and Dart’s reactive rendering model enable:
 	•	Efficient UI updates
@@ -164,43 +169,44 @@ By rebuilding only what is necessary and managing state correctly, Flutter appli
 
 ⸻
 
-Assignment: Firestore Collections & Relations Design
+## Assignment: Firestore Collections & Relations Design
 
-What We Did
+### What We Did
 
 Designed the Firestore database schema for the Smart Library Management Mobile App using production-level NoSQL best practices.
 
 ⸻
 
-Collections Created
+## Collections Created
 
 1. books
-	•	Stores book details and inventory
-	•	Fields: title, author, isbn, shelfLocation, totalCopies, availableCopies
+	- Stores book details and inventory
+	- Fields: title, author, isbn, shelfLocation, totalCopies, availableCopies
 
 2. users
-	•	Stores user profile information
-	•	Fields: name, email, role, createdAt
+	- Stores user profile information
+	- Fields: name, email, role, createdAt
 
 3. borrowings
-	•	Tracks book issue/return transactions
-	•	Fields: bookId, userId, issuedAt, dueAt, returnedAt
+	- Tracks book issue/return transactions
+	- Fields: bookId, userId, issuedAt, dueAt, returnedAt
 
 ⸻
 
-🔗 Relationships
-	•	borrowings.userId → references users
-	•	borrowings.bookId → references books
-	•	No joins; relationships handled using document IDs (Firestore best practice)
+🔗Relationships
+- borrowings.userId → references users
+- borrowings.bookId → references books
+- No joins; relationships handled using document IDs (Firestore best practice)
 
 ⸻
 
 Design Rationale
-	•	Flat, scalable Firestore structure
-	•	Optimized for mobile queries
-	•	Avoids deep nesting
-	•	Easy to extend with Cloud Functions and Firestore Rules
+-  Flat, scalable Firestore structure
+- Optimized for mobile queries
+- Avoids deep nesting
+- Easy to extend with Cloud Functions and Firestore Rules
 
+```
 ⸻
 
 ⚖️ MERN Comparison
@@ -209,13 +215,14 @@ Design Rationale
 	•	Express APIs → Cloud Functions
 
 ⸻
+```
 
-Proof of Work
+## Proof of Work
 
 Screenshots attached showing:
-	•	books collection
-	•	borrowings collection
-	•	users collection
+- books collection
+- borrowings collection
+- users collection
 
 ## 📸 Firebase Firestore – Proof of Work
 
@@ -232,9 +239,55 @@ Screenshots attached showing:
 ⸻
 
 Status
-
+```
 ✔ Collections designed
 ✔ Relations defined
 ✔ Data verified in Firebase Console
+```
 
 ⸻
+## 🎨 Design System & Theme Configuration (Flutter)
+### Overview
+
+As part of improving UI consistency and scalability, a centralized design system has been defined and integrated into the application using Flutter’s ThemeData.
+This ensures a uniform visual language across the app while keeping the widget code clean and maintainable.
+
+The design system abstracts colors, typography, and spacing into reusable tokens that are applied globally.
+
+---
+
+### 🎯 Design System Components
+### Color System
+
+#### A structured color palette has been created to avoid hard-coded values and enforce consistency.
+
+Includes:
+
+- Primary & secondary colors
+
+- Background and surface colors
+
+- Text colors
+
+- Semantic colors (error, success, warning)
+	- All colors are defined in a single source and consumed via the app theme.
+
+---
+
+### Typography System
+
+Typography styles are standardized and mapped to Flutter’s TextTheme.
+
+Defined text styles include:
+
+- Headings
+
+- Body text
+
+- Labels and captions
+
+This allows text styling to be reused consistently using:
+
+```dart
+Theme.of(context).textTheme
+
