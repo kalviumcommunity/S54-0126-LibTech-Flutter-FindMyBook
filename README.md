@@ -290,6 +290,6 @@ This allows text styling to be reused consistently using:
 
 ```dart
 Theme.of(context).textTheme
-
-## Day-29 
+````
+## Day-29
 Discussion of App Design How it works like wireframes along with low fid and high fid design 
