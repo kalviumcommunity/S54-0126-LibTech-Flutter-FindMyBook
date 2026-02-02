@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'core/theme/index.dart';
 import 'features/books/presentation/pages/home_page.dart';
 
 class App extends StatelessWidget {
@@ -9,7 +10,9 @@ class App extends StatelessWidget {
     return MaterialApp(
       title: 'Smart Library',
       debugShowCheckedModeBanner: false,
-      theme: ThemeData(primarySwatch: Colors.blue),
+      theme: AppTheme.lightTheme,
+      darkTheme: AppTheme.darkTheme,
+      themeMode: ThemeMode.light,
       home: const HomePage(),
     );
   }
