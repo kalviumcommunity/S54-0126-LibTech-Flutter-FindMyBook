@@ -37,7 +37,9 @@ dependencies:
   
   # Firebase
   firebase_core: ^4.4.0
-  firebase_auth: ^5.1.4
+
+  firebase_auth: ^6.1.4
+
   cloud_firestore: ^5.4.0
   firebase_storage: ^12.1.2
 
@@ -69,6 +71,7 @@ dev_dependencies:
   # Code generation for Riverpod
   riverpod_generator: ^2.4.2
   build_runner: ^2.4.12
+
 
 dev_dependencies:
   flutter_test:
