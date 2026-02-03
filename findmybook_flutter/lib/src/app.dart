@@ -12,7 +12,6 @@ class App extends StatelessWidget {
     return MaterialApp(
       title: 'Smart Library',
       debugShowCheckedModeBanner: false,
-     auth
       theme: ThemeData(primarySwatch: Colors.blue),
       initialRoute: '/login',
       routes: {
@@ -20,8 +19,6 @@ class App extends StatelessWidget {
         '/login': (c) => const LoginPage(),
         '/register': (c) => const RegisterPage(),
       },
-
-     main
     );
   }
 }
