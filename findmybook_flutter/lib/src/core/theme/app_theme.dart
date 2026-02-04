@@ -158,7 +158,7 @@ abstract class AppTheme {
       ),
 
       // ============= Dialog Theme =============
-      dialogTheme: DialogTheme(
+      dialogTheme: DialogThemeData (
         backgroundColor: AppColors.surface,
         elevation: 8,
         shape: RoundedRectangleBorder(

@@ -55,7 +55,7 @@ final ThemeData appTheme = ThemeData(
     ),
     contentPadding: EdgeInsets.symmetric(horizontal: AppSpacing.md, vertical: AppSpacing.sm),
   ),
-  cardTheme: CardTheme(
+  cardTheme: CardThemeData(
     color: AppColors.surface,
     elevation: 1,
     margin: EdgeInsets.symmetric(vertical: AppSpacing.sm),
