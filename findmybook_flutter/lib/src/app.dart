@@ -1,5 +1,12 @@
 import 'package:flutter/material.dart';
+
 import 'router/router.dart';
+
+import 'core/theme/index.dart';
+import 'features/books/presentation/pages/home_page.dart';
+import 'features/auth/presentation/pages/login_page.dart';
+import 'features/auth/presentation/pages/register_page.dart';
+
 
 class App extends StatefulWidget {
   const App({super.key});
