@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'dart:async';
 import '../features/auth/presentation/pages/login_page.dart';
 import '../features/auth/presentation/pages/register_page.dart';
 import '../features/books/presentation/pages/home_page.dart';
@@ -12,8 +14,14 @@ class AppRouterDelegate extends RouterDelegate<AppRoute>
   @override
   final GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
 
+  AppRouterDelegate() {
+    _initAuthState();
+  }
+
   /// Stack of routes to maintain navigation history
-  final List<AppRoute> _routeStack = [const AppRoute(type: AppRouteType.login, path: '/login')];
+  final List<AppRoute> _routeStack = [];
+  final FirebaseAuth _auth = FirebaseAuth.instance;
+  late final StreamSubscription<User?> _authSub;
 
   /// Getter for the current route
   AppRoute get currentRoute => _routeStack.last;
@@ -25,6 +33,30 @@ class AppRouterDelegate extends RouterDelegate<AppRoute>
   void push(AppRoute route) {
     _routeStack.add(route);
     notifyListeners();
+  }
+
+  /// Initialize authentication state and listener
+  void _initAuthState() {
+    // set initial stack based on current user
+    final user = _auth.currentUser;
+    if (user != null) {
+      _routeStack.clear();
+      _routeStack.add(const AppRoute(type: AppRouteType.home, path: '/home'));
+    } else {
+      _routeStack.clear();
+      _routeStack.add(const AppRoute(type: AppRouteType.login, path: '/login'));
+    }
+
+    // listen for auth changes and update navigation accordingly
+    _authSub = _auth.authStateChanges().listen((u) {
+      if (u == null) {
+        // signed out -> go to login
+        clearAndPush(const AppRoute(type: AppRouteType.login, path: '/login'));
+      } else {
+        // signed in -> go to home
+        clearAndPush(const AppRoute(type: AppRouteType.home, path: '/home'));
+      }
+    });
   }
 
   /// Pop the current route from the stack
@@ -117,5 +149,11 @@ class AppRouterDelegate extends RouterDelegate<AppRoute>
   Future<void> setNewRoutePath(AppRoute configuration) async {
     _routeStack.clear();
     _routeStack.add(configuration);
+  }
+
+  @override
+  void dispose() {
+    _authSub.cancel();
+    super.dispose();
   }
 }
