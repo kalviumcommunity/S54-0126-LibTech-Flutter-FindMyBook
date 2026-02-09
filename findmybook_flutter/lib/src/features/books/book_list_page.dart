@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'models/book.dart';
+import 'presentation/book_card.dart';
+import 'presentation/book_detail_page.dart';
 
 class BookListPage extends StatelessWidget {
   const BookListPage({super.key});
@@ -21,8 +23,13 @@ class BookListPage extends StatelessWidget {
           if (snapshot.hasError) {
             return Center(child: Text('Error: ${snapshot.error}'));
           }
+
+          // While waiting for data, show a list of skeleton cards
           if (snapshot.connectionState == ConnectionState.waiting) {
-            return const Center(child: CircularProgressIndicator());
+            return ListView.builder(
+              itemCount: 6,
+              itemBuilder: (context, index) => const BookCardSkeletonShimmer(),
+            );
           }
 
           final docs = snapshot.data?.docs ?? [];
@@ -37,17 +44,12 @@ class BookListPage extends StatelessWidget {
               final doc = docs[index];
               final book = Book.fromSnapshot(doc);
 
-              return ListTile(
-                leading: const Icon(Icons.book_outlined),
-                title: Text(book.title),
-                subtitle: Text(book.author),
-                trailing: Chip(
-                  label: Text(book.available ? 'Available' : 'Checked out'),
-                  backgroundColor:
-                      book.available ? Colors.green[100] : Colors.red[100],
-                ),
+              return BookCard(
+                book: book,
                 onTap: () {
-                  // Hook for navigation to detail page
+                  Navigator.of(context).push(MaterialPageRoute(
+                    builder: (_) => BookDetailPage(book: book),
+                  ));
                 },
               );
             },
