@@ -1,0 +1,66 @@
+[
+  {
+    "title": "The Pragmatic Programmer",
+    "author": "Andrew Hunt & David Thomas",
+    "isbn": "978-0201616224",
+    "available": true,
+    "publishedAt": "1999-10-20",
+    "genres": ["Software", "Programming"]
+  },
+  {
+    "title": "Clean Code",
+    "author": "Robert C. Martin",
+    "isbn": "978-0132350884",
+    "available": false,
+    "publishedAt": "2008-08-01",
+    "genres": ["Software", "Practices"]
+  },
+  {
+    "title": "Design Patterns",
+    "author": "Erich Gamma, Richard Helm, Ralph Johnson, John Vlissides",
+    "isbn": "978-0201633610",
+    "available": true,
+    "publishedAt": "1994-10-31",
+    "genres": ["Software", "Architecture"]
+  },
+  {
+    "title": "You Don't Know JS: Scope & Closures",
+    "author": "Kyle Simpson",
+    "isbn": "978-1491904152",
+    "available": true,
+    "publishedAt": "2014-03-20",
+    "genres": ["JavaScript", "Programming"]
+  },
+  {
+    "title": "Refactoring",
+    "author": "Martin Fowler",
+    "isbn": "978-0201485677",
+    "available": false,
+    "publishedAt": "1999-07-08",
+    "genres": ["Software", "Design"]
+  },
+  {
+    "title": "The Lean Startup",
+    "author": "Eric Ries",
+    "isbn": "978-0307887894",
+    "available": true,
+    "publishedAt": "2011-09-13",
+    "genres": ["Business", "Startup"]
+  },
+  {
+    "title": "Domain-Driven Design",
+    "author": "Eric Evans",
+    "isbn": "978-0321125217",
+    "available": true,
+    "publishedAt": "2003-08-30",
+    "genres": ["Architecture", "Modeling"]
+  },
+  {
+    "title": "MongoDB: The Definitive Guide",
+    "author": "Kristina Chodorow",
+    "isbn": "978-1449344689",
+    "available": true,
+    "publishedAt": "2013-09-11",
+    "genres": ["Database", "MongoDB"]
+  }
+]
