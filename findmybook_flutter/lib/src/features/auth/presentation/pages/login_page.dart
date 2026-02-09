@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import '../../domain/usecases/sign_in.dart';
 import '../../data/repositories/auth_repository_impl.dart';
+import '../../../../router/app_navigator.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
@@ -44,7 +45,7 @@ class _LoginPageState extends State<LoginPage> {
       await usecase.call(_emailCtrl.text.trim(), _passCtrl.text);
       if (!mounted) return;
       ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('Signed in')));
-      Navigator.of(context).pushReplacementNamed('/');
+      AppNavigator.toHome();
     } catch (e) {
       if (mounted) setState(() => _error = e.toString());
     } finally {
@@ -124,7 +125,14 @@ class _LoginPageState extends State<LoginPage> {
                 ),
                 const SizedBox(height: 12),
                 TextButton(
-                  onPressed: _loading ? null : () => Navigator.of(context).pushReplacementNamed('/register'),
+                  onPressed: _loading ? null : () {
+                    print('Register button pressed');
+                    try {
+                      AppNavigator.toRegister();
+                    } catch (e) {
+                      print('Navigation error: $e');
+                    }
+                  },
                   child: const Text('Don\'t have an account? Register'),
                 ),
               ],

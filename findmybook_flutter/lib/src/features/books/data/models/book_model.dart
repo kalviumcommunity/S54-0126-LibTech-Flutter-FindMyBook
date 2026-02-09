@@ -12,5 +12,13 @@ class BookModel extends Book {
     );
   }
 
+  factory BookModel.fromFirestore(Map<String, dynamic> data, String id) {
+    return BookModel(
+      id: id,
+      title: data['title'] as String? ?? '',
+      author: data['author'] as String? ?? '',
+    );
+  }
+
   Map<String, dynamic> toMap() => {'id': id, 'title': title, 'author': author};
 }

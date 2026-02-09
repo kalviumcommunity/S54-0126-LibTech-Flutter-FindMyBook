@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import '../../domain/usecases/sign_up.dart';
 import '../../data/repositories/auth_repository_impl.dart';
+import '../../../../router/app_navigator.dart';
 
 class RegisterPage extends StatefulWidget {
   const RegisterPage({super.key});
@@ -41,11 +42,14 @@ class _RegisterPageState extends State<RegisterPage> {
     final repo = AuthRepositoryImpl();
     final usecase = SignUp(repo);
     try {
+      print('Registering user: ${_emailCtrl.text.trim()}');
       await usecase.call(_emailCtrl.text.trim(), _passCtrl.text);
       if (!mounted) return;
+      print('Registration successful');
       ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('Registered')));
-      Navigator.of(context).pushReplacementNamed('/');
+      AppNavigator.toHome();
     } catch (e) {
+      print('Registration error: $e');
       if (mounted) setState(() => _error = e.toString());
     } finally {
       if (mounted) setState(() => _loading = false);
@@ -124,7 +128,7 @@ class _RegisterPageState extends State<RegisterPage> {
                 ),
                 const SizedBox(height: 12),
                 TextButton(
-                  onPressed: _loading ? null : () => Navigator.of(context).pushReplacementNamed('/login'),
+                  onPressed: _loading ? null : () => AppNavigator.toLogin(),
                   child: const Text('Already have an account? Login'),
                 ),
               ],
