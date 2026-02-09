@@ -15,9 +15,14 @@ class _LoginPageState extends State<LoginPage> {
   final _emailCtrl = TextEditingController();
   final _passCtrl = TextEditingController();
   bool _loading = false;
+
   final _emailFocus = FocusNode();
   final _passFocus = FocusNode();
   String? _error;
+
+  final _passFocus = FocusNode();
+  String? _errorMessage;
+
 
   String? _validateEmail(String? v) {
     if (v == null || v.isEmpty) return 'Email is required';
@@ -35,35 +40,56 @@ class _LoginPageState extends State<LoginPage> {
   Future<void> _submit() async {
     FocusScope.of(context).unfocus();
     if (!_formKey.currentState!.validate()) return;
+
     setState(() {
       _loading = true;
       _error = null;
     });
+
+    FocusScope.of(context).unfocus();
+    setState(() => _loading = true);
+
     final repo = AuthRepositoryImpl();
     final usecase = SignIn(repo);
     try {
       await usecase.call(_emailCtrl.text.trim(), _passCtrl.text);
       if (!mounted) return;
+
       ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('Signed in')));
       AppNavigator.toHome();
     } catch (e) {
       if (mounted) setState(() => _error = e.toString());
+
+      Navigator.of(context).pushReplacementNamed('/');
+    } catch (e) {
+      if (!mounted) return;
+      setState(() => _errorMessage = _extractErrorMessage(e));
+
     } finally {
       if (mounted) setState(() => _loading = false);
     }
+  }
+
+  String _extractErrorMessage(Object e) {
+    final s = e.toString();
+    if (s.startsWith('Exception: ')) return s.replaceFirst('Exception: ', '');
+    return s;
   }
 
   @override
   void dispose() {
     _emailCtrl.dispose();
     _passCtrl.dispose();
+
     _emailFocus.dispose();
+
     _passFocus.dispose();
     super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
+
     return Scaffold(
       appBar: AppBar(title: const Text('Login')),
       body: GestureDetector(
@@ -93,13 +119,45 @@ class _LoginPageState extends State<LoginPage> {
                         IconButton(
                           icon: const Icon(Icons.close, color: Colors.red),
                           onPressed: () => setState(() => _error = null),
+
+    return GestureDetector(
+      onTap: () => FocusScope.of(context).unfocus(),
+      child: Scaffold(
+        appBar: AppBar(title: const Text('Login')),
+        body: SingleChildScrollView(
+          padding: const EdgeInsets.all(16.0),
+          child: Form(
+            key: _formKey,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                if (_errorMessage != null)
+                  Container(
+                    margin: const EdgeInsets.only(bottom: 12.0),
+                    padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 10),
+                    decoration: BoxDecoration(
+                      color: Colors.red.shade50,
+                      borderRadius: BorderRadius.circular(6),
+                      border: Border.all(color: Colors.red.shade200),
+                    ),
+                    child: Row(
+                      children: [
+                        Expanded(child: Text(_errorMessage!, style: const TextStyle(color: Colors.red))),
+                        IconButton(
+                          icon: const Icon(Icons.close, size: 20, color: Colors.red),
+                          onPressed: () => setState(() => _errorMessage = null),
+
                         )
                       ],
                     ),
                   ),
                 TextFormField(
                   controller: _emailCtrl,
+
                   focusNode: _emailFocus,
+
+
                   decoration: const InputDecoration(labelText: 'Email'),
                   keyboardType: TextInputType.emailAddress,
                   textInputAction: TextInputAction.next,
@@ -114,13 +172,21 @@ class _LoginPageState extends State<LoginPage> {
                   obscureText: true,
                   textInputAction: TextInputAction.done,
                   validator: _validatePassword,
+
                   onFieldSubmitted: (_) => _submit(),
+
+                  onFieldSubmitted: (_) => _loading ? null : _submit(),
+
                 ),
                 const SizedBox(height: 20),
                 ElevatedButton(
                   onPressed: _loading ? null : _submit,
                   child: _loading
+
                       ? const SizedBox(width: 18, height: 18, child: CircularProgressIndicator(strokeWidth: 2.0, color: Colors.white))
+
+                      ? const SizedBox(width: 18, height: 18, child: CircularProgressIndicator(strokeWidth: 2, color: Colors.white))
+
                       : const Text('Login'),
                 ),
                 const SizedBox(height: 12),

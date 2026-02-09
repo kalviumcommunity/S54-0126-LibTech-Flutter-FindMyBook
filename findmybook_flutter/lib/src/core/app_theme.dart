@@ -51,7 +51,15 @@ final ThemeData appTheme = ThemeData.from(colorScheme: _appColorScheme, textThem
     ),
     contentPadding: EdgeInsets.symmetric(horizontal: AppSpacing.md, vertical: AppSpacing.sm),
   ),
-  // cardTheme removed to avoid CardTheme/CardThemeData mismatch on current SDK
+
+  cardTheme: CardThemeData(
+    color: AppColors.surface,
+    elevation: 1,
+    margin: EdgeInsets.symmetric(vertical: AppSpacing.sm),
+    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+  ),
+  elevatedButtonColor: AppColors.primary,
+
   dividerColor: AppColors.border,
   shadowColor: AppColors.shadow,
 );
