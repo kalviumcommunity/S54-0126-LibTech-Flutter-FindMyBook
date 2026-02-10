@@ -144,7 +144,16 @@ abstract class AppTheme {
       ),
 
       // ============= Card Theme =============
-      cardTheme: CardTheme(
+      cardTheme: CardTheme      git add -A
+      git commit -m "feat: improve book card UI and add loading skeletons
+      
+      - Create BookCard presentation widget with rich metadata (genres, year, availability)
+      - Add BookCardSkeleton and Shimmer for polished loading states
+      - Create BookDetailPage with full book information display
+      - Wire navigation from book list to detail page
+      - Replace simple ListTile with reusable card component
+      - Upgrade Firebase, Riverpod, and GoRouter dependencies"
+      git push origin ui-book-skeleton(
         color: AppColors.surface,
         elevation: 1,
         margin: EdgeInsets.zero,
