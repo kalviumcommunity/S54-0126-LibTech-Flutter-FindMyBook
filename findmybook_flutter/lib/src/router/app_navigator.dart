@@ -26,7 +26,7 @@ class AppNavigator {
 
   /// Navigate to the register page
   static void toRegister() {
-    delegate.push(const AppRoute(type: AppRouteType.register, path: '/register'));
+    delegate.clearAndPush(const AppRoute(type: AppRouteType.register, path: '/register'));
   }
 
   /// Navigate to the home page

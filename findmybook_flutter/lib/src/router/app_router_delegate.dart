@@ -88,8 +88,10 @@ class AppRouterDelegate extends RouterDelegate<AppRoute>
 
   /// Clear the entire stack and set a new route
   void clearAndPush(AppRoute route) {
+    print('clearAndPush called with route: $route');
     _routeStack.clear();
     _routeStack.add(route);
+    print('Route stack after clearAndPush: $_routeStack');
     notifyListeners();
   }
 
