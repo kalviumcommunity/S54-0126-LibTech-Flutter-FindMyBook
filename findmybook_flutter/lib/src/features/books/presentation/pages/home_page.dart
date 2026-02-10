@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import '../../domain/entities/book.dart';
 import '../../data/repositories/book_repository_impl.dart';
+import '../../data/models/book_model.dart';
+import 'book_details_page.dart';
+import '../../../reservations/presentation/pages/my_reservations_page.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -60,6 +63,20 @@ class _HomePageState extends State<HomePage> {
       appBar: AppBar(
         title: const Text('Smart Library'),
         elevation: 0,
+        actions: [
+          IconButton(
+            icon: const Icon(Icons.bookmarks),
+            tooltip: 'My Reservations',
+            onPressed: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => const MyReservationsPage(),
+                ),
+              );
+            },
+          ),
+        ],
       ),
       body: FutureBuilder<List<Book>>(
         future: _repo.getBooks(),
@@ -244,6 +261,14 @@ class _HomePageState extends State<HomePage> {
           margin: const EdgeInsets.symmetric(vertical: 6),
           shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
           child: ListTile(
+            onTap: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => BookDetailsPage(book: book as BookModel),
+                ),
+              );
+            },
             leading: CircleAvatar(
               backgroundColor: Colors.blue.shade100,
               child: Text(
