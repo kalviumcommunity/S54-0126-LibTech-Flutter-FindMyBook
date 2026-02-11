@@ -6,6 +6,7 @@ import '../../../reservations/data/datasources/reservations_remote_data_source.d
 import '../../../reservations/data/repositories/reservation_repository_impl.dart';
 import '../../../reservations/domain/repositories/reservation_repository.dart';
 import '../../../reservations/domain/usecases/reservation_usecases.dart';
+import '../../../reservations/presentation/pages/reservation_feedback_util.dart';
 
 class BookDetailsPage extends StatefulWidget {
   final BookModel book;
@@ -137,29 +138,20 @@ class _BookDetailsPageState extends State<BookDetailsPage> {
       _error = null;
     });
 
-    try {
-      await _reserveBookUsecase(
-        user.uid,
-        widget.book.id,
-        widget.book.title,
-        widget.book.author,
-      );
+    // Show dialog feedback for reservation attempt
+    await showReservationFeedback(
+      context: context,
+      bookId: widget.book.id,
+      bookTitle: widget.book.title,
+      bookAuthor: widget.book.author,
+    );
 
-      if (mounted) {
-        setState(() {
-          _isReserved = true;
-          _isReserving = false;
-        });
-        _showSuccessSnackbar('Book reserved successfully!');
-      }
-    } catch (e) {
-      if (mounted) {
-        setState(() {
-          _isReserving = false;
-          _error = e.toString();
-        });
-        _showErrorSnackbar('Failed to reserve book: $e');
-      }
+    // After dialog, refresh reservation status
+    await _checkReservationStatus();
+    if (mounted) {
+      setState(() {
+        _isReserving = false;
+      });
     }
   }
 
