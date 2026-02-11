@@ -70,13 +70,12 @@ class FirestoreSearchQueries {
   ///   }
   /// }
   /// ```
-  static Future<(List<BookModel> books, int? nextPageKey)>
-      getAllBooksPaginated({
+  static Future<List<BookModel>> getAllBooksPaginated({
     int limit = 20,
     int? pageOffset,
   }) async {
-    // Mock implementation
-    return const ([], null);
+    // Mock implementation - returns empty list for now.
+    return [];
   }
 
   /// Get books by exact author (indexed query)
