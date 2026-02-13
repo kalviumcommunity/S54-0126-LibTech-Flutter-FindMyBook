@@ -64,6 +64,23 @@ dependencies:
   google_maps_flutter_android: ^2.15.6
   google_maps_flutter_ios: ^2.12.6
 
+  # Dependency Injection (↔ React Context/Redux providers)
+  get_it: ^8.0.0
+
+  # Immutable Models & Serialization (↔ MongoDB + TypeScript interfaces)
+  freezed_annotation: ^2.4.1
+  json_annotation: ^4.8.0
+
+  # Animations and UI Polish
+  animations: ^2.0.11
+  animatedContainer: ^1.0.0
+
+  # Logging & Debugging
+  logger: ^2.4.0
+
+  # Functional Programming (Either monad for error handling)
+  fpdart: ^1.1.0
+
 dev_dependencies:
   flutter_test:
     sdk: flutter
@@ -71,6 +88,10 @@ dev_dependencies:
   # Code generation for Riverpod
   riverpod_generator: ^4.0.0+1
   build_runner: ^2.4.12
+
+  # Code generation for Freezed & JSON Serialization
+  freezed: ^2.4.6
+  json_serializable: ^6.8.0
 
   # The "flutter_lints" package below contains a set of recommended lints to
   # encourage good coding practices. The lint set provided by the package is
