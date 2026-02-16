@@ -4,6 +4,7 @@ import 'dart:async';
 import '../features/auth/presentation/pages/login_page.dart';
 import '../features/auth/presentation/pages/register_page.dart';
 import '../features/books/presentation/pages/home_page.dart';
+import '../features/library_locations/presentation/pages/library_locations_map_page.dart';
 import 'app_route.dart';
 
 /// Delegate for managing app navigation using Navigator 2.0
@@ -132,6 +133,12 @@ class AppRouterDelegate extends RouterDelegate<AppRoute>
         return MaterialPage<void>(
           key: ValueKey<AppRoute>(route),
           child: const HomePage(),
+        );
+
+      case AppRouteType.libraryLocationsMap:
+        return MaterialPage<void>(
+          key: ValueKey<AppRoute>(route),
+          child: const LibraryLocationsMapPage(),
         );
 
       case AppRouteType.unknown:
