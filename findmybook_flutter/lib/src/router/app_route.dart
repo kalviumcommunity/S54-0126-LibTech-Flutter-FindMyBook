@@ -3,6 +3,7 @@ enum AppRouteType {
   login,
   register,
   home,
+  libraryLocationsMap,
   unknown,
 }
 
@@ -41,6 +42,14 @@ class AppRoute {
       return const AppRoute(
         type: AppRouteType.register,
         path: '/register',
+      );
+    }
+
+    if (pathWithoutLeadingSlash.startsWith('library-locations') ||
+        pathWithoutLeadingSlash.startsWith('libraries')) {
+      return const AppRoute(
+        type: AppRouteType.libraryLocationsMap,
+        path: '/library-locations',
       );
     }
 

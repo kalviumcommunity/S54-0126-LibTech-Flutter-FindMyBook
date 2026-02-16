@@ -113,3 +113,13 @@ exports.reserveBook = functions.https.onCall(async (data, context) => {
     throw new functions.https.HttpsError('internal', 'An error occurred during reservation.');
   }
 });
+
+// ============================================================================
+// Library Locations Functions (Google Maps Integration)
+// ============================================================================
+
+// Import and export the seed library locations functions
+const seedFunctions = require('./seed_library_locations');
+exports.seedLibraryLocations = seedFunctions.seedLibraryLocations;
+exports.updateLibraryAvailability = seedFunctions.updateLibraryAvailability;
+exports.getNearbyLibraries = seedFunctions.getNearbyLibraries;
